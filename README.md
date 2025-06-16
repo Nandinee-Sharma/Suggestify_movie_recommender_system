@@ -4,6 +4,9 @@ Your Personal Movie Recommender System built with Streamlit
 ---
 ![UI preview](img.png)
 
+## View the app live on streamlit cloud
+### https://suggestifymovierecommendersystem-gynkbdnmeqjjea86acvpgo.streamlit.app/
+
 ## 📌 What is a Recommendation System?
 
 A **recommendation system** is a type of information filtering system that suggests relevant items (like movies, products, or content) to users based on their preferences. These systems are widely used on platforms like Netflix, YouTube, and Amazon.
