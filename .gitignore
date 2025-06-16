@@ -11,8 +11,7 @@ similarity.pkl
 movies_dict.pkl
 
 # Ignore all poster images except placeholder
-posters/
-!posters/placeholder.jpg
+
 
 # Jupyter artifacts
 *.ipynb_checkpoints/

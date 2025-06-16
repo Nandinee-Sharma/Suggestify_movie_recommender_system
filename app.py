@@ -66,11 +66,6 @@ st.subheader("Your Personal Movie Recommender")
 
 selected_movie_name = st.selectbox('Choose a movie you like', movies['title'].values)
 
-# --- Image encoding helper ---
-def convert_image_to_base64(image_path):
-    with open(image_path, "rb") as image_file:
-        encoded_string = base64.b64encode(image_file.read()).decode()
-    return encoded_string
 
 if st.button('Recommend'):
     names, posters = recommend(selected_movie_name)
