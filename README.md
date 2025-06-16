@@ -2,6 +2,7 @@
 Your Personal Movie Recommender System built with Streamlit
 
 ---
+![UI preview](img.png)
 
 ## 📌 What is a Recommendation System?
 
