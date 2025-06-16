@@ -1,7 +1,6 @@
-# 🎥 Suggestify 🍿  
-Your Personal Movie Recommender System built with Streamlit
+## 🎥 Suggestify 🍿  
+### Your Personal Movie Recommender System built with Streamlit and Machine learning concept
 
----
 ![UI preview](img.png)
 
 ## View the app live on streamlit cloud
