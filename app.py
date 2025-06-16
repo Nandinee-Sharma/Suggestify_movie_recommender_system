@@ -2,8 +2,17 @@ import pandas as pd
 import streamlit as st
 import pickle
 import os
+import base64
+import gdown
 
-# --- Function to clean title and get image path ---
+def download_similarity():
+    url = 'https://drive.google.com/uc?id=1MCvxJ6ksRHBz-MFI1eclIzQRED1sM_iM'
+    output = 'similarity.pkl'
+    gdown.download(url, output, quiet=False)
+
+download_similarity()
+
+
 def fetch_local_poster(movie_title):
     safe_title = "".join(c for c in movie_title if c.isalnum() or c in (" ", "_")).rstrip()
     file_path = f"posters/{safe_title}.jpg"
@@ -28,10 +37,14 @@ def recommend(movie):
 
     return recommended_movies, recommended_posters
 
-# --- Load data ---
-movies_dict = pickle.load(open('movies_dict.pkl', 'rb'))
-movies = pd.DataFrame(movies_dict)
-similarity = pickle.load(open('similarity.pkl', 'rb'))
+@st.cache_resource
+def load_data():
+    movies_dict = pickle.load(open('movies_dict.pkl', 'rb'))
+    similarity = pickle.load(open('similarity.pkl', 'rb'))
+    return pd.DataFrame(movies_dict), similarity
+
+movies, similarity = load_data()
+
 
 # --- Streamlit UI ---
 st.markdown("<h1 style='text-align: center;'>🎥 Suggestify 🍿</h1>", unsafe_allow_html=True)
@@ -39,14 +52,11 @@ st.subheader("Your Personal Movie Recommender")
 
 selected_movie_name = st.selectbox('Choose a movie you like', movies['title'].values)
 
-
-# --- Image encoding helper (for consistent local rendering in Streamlit) ---
-import base64
+# --- Image encoding helper ---
 def convert_image_to_base64(image_path):
     with open(image_path, "rb") as image_file:
         encoded_string = base64.b64encode(image_file.read()).decode()
     return encoded_string
-
 
 if st.button('Recommend'):
     names, posters = recommend(selected_movie_name)
@@ -54,12 +64,4 @@ if st.button('Recommend'):
     cols = st.columns(5)
     for idx, col in enumerate(cols):
         with col:
-            st.markdown(f"""
-                <div style="text-align: center;">
-                    <h4 style="font-size: 16px; margin-bottom: 10px;">{names[idx]}</h4>
-                    <img src="data:image/jpeg;base64,{convert_image_to_base64(posters[idx])}" 
-                         style="width:100%; height:250px; object-fit:cover; border-radius:10px;" />
-                </div>
-            """, unsafe_allow_html=True)
-
-
+            st.image(posters[idx], caption=names[idx], use_container_width=True)
