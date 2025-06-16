@@ -4,14 +4,28 @@ import pickle
 import os
 import base64
 import gdown
+import zipfile
 
 def download_similarity():
     url = 'https://drive.google.com/uc?id=1MCvxJ6ksRHBz-MFI1eclIzQRED1sM_iM'
     output = 'similarity.pkl'
     gdown.download(url, output, quiet=False)
 
-download_similarity()
+# --- Download and extract posters.zip ---
+def download_and_extract_posters():
+    posters_dir = "posters"
+    if not os.path.exists(posters_dir) or len(os.listdir(posters_dir)) == 0:
+        os.makedirs(posters_dir, exist_ok=True)
+        zip_path = "posters.zip"
+        posters_zip_file_id = "1Aan285Ir0ZXtaeJVFaulZjemXJJ--8pW"
+        gdown.download(f"https://drive.google.com/uc?id={posters_zip_file_id}", zip_path, quiet=False)
+        with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+            zip_ref.extractall(posters_dir)
+        os.remove(zip_path)
 
+
+download_similarity()
+download_and_extract_posters()
 
 def fetch_local_poster(movie_title):
     safe_title = "".join(c for c in movie_title if c.isalnum() or c in (" ", "_")).rstrip()
