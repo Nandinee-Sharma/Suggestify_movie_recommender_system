@@ -1,0 +1,25 @@
+# Ignore environment and Python caches
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Ignore large pickle files (not tracked)
+*.pkl
+
+# Ignore all poster images except placeholder
+posters/
+!posters/placeholder.jpg
+
+# Jupyter artifacts
+*.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Streamlit cache
+.streamlit/
+
